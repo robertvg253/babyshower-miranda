@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { supabase } from '../../../../lib/supabase';
+import { supabase } from '@/lib/supabase';
 import RegaloDetailClient from './RegaloDetailClient';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +8,7 @@ export default async function RegaloPage({ params }: { params: Promise<{ id: str
   const { id } = await params;
   
   const { data: regalo, error } = await supabase
-    .from('regalos_babyshower')
+    .from('regalos_ruth')
     .select('*')
     .eq('id', id)
     .single();
@@ -18,7 +18,7 @@ export default async function RegaloPage({ params }: { params: Promise<{ id: str
   }
 
   return (
-    <main className="min-h-screen bg-[#FAFAFA] font-sans">
+    <main className="min-h-screen bg-pastel-pink/20 text-pastel-text font-cormorant">
       <RegaloDetailClient initialRegalo={regalo} />
     </main>
   );

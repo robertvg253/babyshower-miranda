@@ -1,18 +1,34 @@
-import LoginForm from "@/components/LoginForm";
-import PredictionForm from "@/components/PredictionForm";
-import ClientPredictionPage from "@/components/ClientPredictionPage";
+import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { supabase } from '@/lib/supabase';
+import WishlistClient from './WishlistClient';
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Mesa de Regalos de Ruth',
+  description: 'Lista de sugerencias y mesa de regalos de Ruth',
+};
+
+export default async function WishlistPage() {
+  const cookieStore = await cookies();
+  const hasLoadedBefore = cookieStore.has('wishlist_loaded');
+
+  const { data: regalos, error } = await supabase
+    .from('regalos_ruth')
+    .select('*')
+    .order('orden', { ascending: true, nullsFirst: false });
+
+  if (error) {
+    console.error("Error fetching regalos:", error);
+  }
+
   return (
-    <div className="min-h-screen bg-[#F9F8F6] relative overflow-hidden flex flex-col items-center justify-center p-4">
-      {/* Elementos decorativos (círculos difuminados de fondo) */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#C5B39A] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-[#e0d6c8] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-[#e8dfd3] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-
-      <div className="relative z-10 w-full max-w-4xl py-12">
-        <ClientPredictionPage />
-      </div>
-    </div>
+    <main className="min-h-screen bg-pastel-pink/20 text-pastel-text font-cormorant">
+      <WishlistClient 
+        initialRegalos={regalos || []} 
+        initialHasLoaded={hasLoadedBefore}
+      />
+    </main>
   );
 }

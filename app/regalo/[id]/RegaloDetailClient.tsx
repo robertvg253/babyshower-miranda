@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gift, ArrowLeft } from 'lucide-react';
-import { supabase } from '../../../../lib/supabase';
+import { supabase } from '@/lib/supabase';
 
 interface Props {
   initialRegalo: any;
@@ -14,13 +14,12 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
   const [regalo, setRegalo] = useState(initialRegalo);
   const [showModal, setShowModal] = useState(false);
   const [isReserving, setIsReserving] = useState(false);
-  const router = useRouter();
 
   const handleReserve = async () => {
     setIsReserving(true);
     try {
       const { error } = await supabase
-        .from('regalos_babyshower')
+        .from('regalos_ruth')
         .update({ reservado: true })
         .eq('id', regalo.id);
 
@@ -37,16 +36,16 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#F9F8F6] relative pb-20">
+    <div className="w-full min-h-screen bg-pastel-pink/20 text-pastel-text font-cormorant relative pb-20">
       
       {/* Botón Flotante de Retorno */}
-      <button
-        onClick={() => router.back()}
-        className="fixed top-6 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/80 backdrop-blur-md shadow-sm text-gray-700 hover:bg-white hover:text-gray-900 transition-colors font-playfair text-xs tracking-wider uppercase"
+      <Link
+        href="/"
+        className="fixed top-6 left-4 z-50 flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-pastel-pink/90 backdrop-blur-md shadow-sm text-pastel-text hover:bg-pastel-green transition-colors font-cormorant font-semibold text-xs tracking-wider uppercase border border-white/60"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Volver</span>
-      </button>
+      </Link>
 
       {/* Imagen Hero Edge-to-Edge */}
       <div className="w-full relative">
@@ -57,14 +56,14 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
             className="w-full h-auto max-h-[50vh] object-cover block"
           />
         ) : (
-          <div className="w-full h-64 bg-pink-50/50 flex items-center justify-center">
-            <Gift className="w-20 h-20 text-gray-300" strokeWidth={1} />
+          <div className="w-full h-64 bg-pastel-pink/50 flex items-center justify-center">
+            <Gift className="w-20 h-20 text-pastel-text/40" strokeWidth={1} />
           </div>
         )}
 
         {/* Badge RESERVADO encima de la imagen */}
         {regalo.es_reservable && regalo.reservado && (
-          <div className="absolute top-6 right-4 z-40 bg-[#b56a7f] text-white text-[10px] md:text-xs font-sans font-bold tracking-widest px-3.5 py-1.5 rounded-full shadow-lg uppercase border border-white/60 backdrop-blur-xs">
+          <div className="absolute top-6 right-4 z-40 bg-pastel-green text-pastel-text text-[10px] md:text-xs font-cormorant font-bold tracking-widest px-3.5 py-1.5 rounded-full shadow-lg uppercase border border-white/70 backdrop-blur-xs">
             RESERVADO
           </div>
         )}
@@ -74,23 +73,23 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
       <div className="w-full max-w-2xl mx-auto px-6 mt-8 flex flex-col items-center">
         
         {/* Título Principal */}
-        <h1 className="font-playfair text-4xl text-[#4a4a4a] text-center mb-2 leading-tight">
+        <h1 className="font-cormorant font-semibold text-4xl text-pastel-text text-center mb-2 leading-tight">
           {regalo.nombre}
         </h1>
         
         {/* Tienda en Cursiva (Opcional) */}
         {regalo.tienda && (
-          <p className="text-sm text-gray-400 italic text-center mb-6">
+          <p className="font-cormorant text-base text-pastel-text/75 italic text-center mb-6">
             {regalo.tienda}
           </p>
         )}
 
         {/* Separador Elegante */}
-        <hr className="w-1/3 mx-auto border-t border-[#b56a7f]/30 my-6" />
+        <hr className="w-1/3 mx-auto border-t border-pastel-pink my-6" />
 
         {/* Descripción */}
         {regalo.descripcion && (
-          <p className="leading-relaxed text-gray-600 text-center px-4 md:px-12 mb-8">
+          <p className="font-cormorant text-lg leading-relaxed text-pastel-text text-center px-4 md:px-12 mb-8">
             {regalo.descripcion}
           </p>
         )}
@@ -107,7 +106,7 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
                 e.preventDefault();
                 window.open(regalo.enlace, '_blank', 'noopener,noreferrer');
               }}
-              className="w-full py-4 rounded-full bg-transparent border border-gray-300 text-gray-600 font-playfair text-xs tracking-wider uppercase text-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-4 rounded-full bg-pastel-pink/50 border border-pastel-pink text-pastel-text font-cormorant font-semibold text-xs tracking-wider uppercase text-center hover:bg-pastel-pink transition-colors flex items-center justify-center gap-1.5"
             >
               <span>Ver Referencia en Tienda</span>
               <span className="text-sm">↗</span>
@@ -120,22 +119,22 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
                 <div className="flex flex-col gap-3 w-full">
                   <button 
                     disabled
-                    className="w-full py-4 rounded-full bg-[#b56a7f] text-white font-playfair text-xs tracking-wider uppercase cursor-not-allowed opacity-80"
+                    className="w-full py-4 rounded-full bg-pastel-green text-pastel-text font-cormorant font-bold text-xs tracking-wider uppercase cursor-not-allowed opacity-90"
                   >
                     RESERVADO ✓
                   </button>
-                  <button
-                    onClick={() => router.back()}
-                    className="w-full py-4 rounded-full bg-transparent border border-[#b56a7f]/40 text-[#b56a7f] font-playfair text-xs tracking-wider uppercase hover:bg-[#FFE6E7]/30 transition-colors"
+                  <Link
+                    href="/"
+                    className="w-full py-4 rounded-full bg-pastel-pink/40 border border-pastel-pink text-pastel-text font-cormorant font-semibold text-xs tracking-wider uppercase hover:bg-pastel-pink/80 transition-colors text-center"
                   >
                     ← Volver a la Lista
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <motion.button 
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowModal(true)}
-                  className="w-full py-4 rounded-full bg-[#EB9EAB] text-white font-playfair text-xs tracking-wider uppercase hover:bg-[#dda7b8] transition-colors shadow-md"
+                  className="w-full py-4 rounded-full bg-pastel-green text-pastel-text font-cormorant font-bold text-xs tracking-wider uppercase hover:brightness-95 transition-all shadow-md"
                 >
                   RESERVAR REGALO
                 </motion.button>
@@ -162,11 +161,11 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl p-6 md:p-8 max-w-lg mx-auto"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl p-6 md:p-8 max-w-lg mx-auto border-t border-pastel-pink"
             >
-              <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6" />
+              <div className="w-12 h-1.5 bg-pastel-pink rounded-full mx-auto mb-6" />
               
-              <p className="font-playfair text-sm text-gray-600 mb-8 text-center leading-relaxed">
+              <p className="font-cormorant text-base text-pastel-text mb-8 text-center leading-relaxed">
                 ¿Confirmas que deseas regalar <strong>{regalo.nombre}</strong>? Al reservarlo, te aseguras de ser la única persona en obsequiarlo.
               </p>
 
@@ -175,10 +174,10 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
                   whileTap={{ scale: isReserving ? 1 : 0.95 }}
                   disabled={isReserving}
                   onClick={handleReserve}
-                  className="w-full py-4 rounded-full bg-[#EB9EAB] text-white font-playfair text-sm tracking-widest uppercase flex justify-center items-center hover:bg-[#dda7b8] transition-colors"
+                  className="w-full py-4 rounded-full bg-pastel-green text-pastel-text font-cormorant font-bold text-sm tracking-widest uppercase flex justify-center items-center hover:brightness-95 transition-all shadow-sm"
                 >
                   {isReserving ? (
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-5 w-5 text-pastel-text" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -189,7 +188,7 @@ export default function RegaloDetailClient({ initialRegalo }: Props) {
                 <button 
                   disabled={isReserving}
                   onClick={() => setShowModal(false)}
-                  className="w-full py-4 rounded-full bg-transparent text-gray-500 font-playfair text-xs tracking-widest uppercase hover:bg-gray-50 transition-colors"
+                  className="w-full py-4 rounded-full bg-transparent text-pastel-text/80 font-cormorant font-semibold text-xs tracking-widest uppercase hover:bg-pastel-pink/30 transition-colors"
                 >
                   Cancelar
                 </button>

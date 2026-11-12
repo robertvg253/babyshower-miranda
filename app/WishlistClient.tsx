@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { Gift } from 'lucide-react';
-import { supabase } from '../../../lib/supabase';
+import { supabase } from '@/lib/supabase';
 import dynamic from 'next/dynamic';
 
 const WishlistTour = dynamic(() => import('./WishlistTour'), { ssr: false });
@@ -48,7 +47,6 @@ export default function WishlistClient({
   // Total sincronización entre Servidor y Cliente para evitar Hydration Mismatch
   const [isFirstLoad] = useState(!initialHasLoaded);
   const [isLoading, setIsLoading] = useState(!initialHasLoaded);
-  const router = useRouter();
 
   // Pre-carga real de imágenes enlazada directamente al tiempo de vida del Skeleton
   useEffect(() => {
@@ -119,7 +117,7 @@ export default function WishlistClient({
       .channel('realtime-regalos')
       .on(
         'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'regalos_babyshower' },
+        { event: 'UPDATE', schema: 'public', table: 'regalos_ruth' },
         (payload) => {
           setRegalos((prevRegalos: any) =>
             prevRegalos.map((regalo: any) =>
@@ -141,7 +139,7 @@ export default function WishlistClient({
 
     try {
       const { error } = await supabase
-        .from('regalos_babyshower')
+        .from('regalos_ruth')
         .update({ reservado: true })
         .eq('id', selectedRegalo.id);
 
@@ -199,44 +197,33 @@ export default function WishlistClient({
   const firstInfiniteId = regalos.find(r => !r.es_reservable)?.id;
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-8 md:py-16">
+    <div className="w-full max-w-5xl mx-auto px-4 py-8 md:py-16 text-pastel-text font-cormorant">
 
       {/* Componente de Onboarding Tour */}
       <WishlistTour />
 
-      {/* Botón Volver */}
-      <button
-        onClick={() => router.back()}
-        className="flex items-center gap-2 mb-8 text-gray-500 hover:text-gray-800 transition-colors font-playfair text-xs tracking-widest uppercase"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Volver a la invitación
-      </button>
-
       {/* Encabezado */}
       <div className="text-center mb-10">
-        <p className="font-playfair text-xs tracking-[0.2em] uppercase text-gray-500 mb-3">
+        <p className="font-cormorant text-xs tracking-[0.2em] uppercase text-pastel-text/75 font-semibold mb-3">
           WISHLIST
         </p>
-        <h1 className="font-great-vibes text-5xl md:text-7xl text-[#6B4E41] mb-4" style={{ fontFamily: "'Great Vibes', cursive" }}>
+        <h1 className="font-parisienne text-5xl md:text-7xl text-pastel-text mb-4">
           Mesa de Regalos
         </h1>
-        <p className="font-playfair text-xs md:text-sm text-gray-600 max-w-lg mx-auto leading-relaxed px-2 mb-8">
-          Si deseas tener un detalle con Avril, hemos preparado esta lista de sugerencias.
+        <p className="font-cormorant text-sm md:text-base text-pastel-text max-w-lg mx-auto leading-relaxed px-2 mb-8">
+          Si deseas tener un detalle con Ruth, hemos preparado esta lista de sugerencias.
           Puedes reservar un regalo para asegurar que no se repita.
         </p>
       </div>
 
       {/* Banner Recordatorio */}
-      <div className="bg-pink-50 border border-pink-100 rounded-xl p-5 mb-10 max-w-2xl mx-auto shadow-sm flex flex-col items-center gap-2">
-        <p className="text-center text-[13px] md:text-sm text-gray-600 font-playfair italic leading-relaxed">
+      <div className="bg-pastel-pink/60 border border-pastel-pink rounded-xl p-5 mb-10 max-w-2xl mx-auto shadow-sm flex flex-col items-center gap-2">
+        <p className="text-center text-sm md:text-base text-pastel-text font-cormorant italic leading-relaxed">
           Por favor, recuerda identificar tu obsequio físico con una tarjetita para saber de quién viene este hermoso detalle.
         </p>
         <button
           onClick={() => window.dispatchEvent(new CustomEvent('open-wishlist-tour'))}
-          className="text-[11px] md:text-xs text-[#b56a7f] hover:text-[#91465b] font-playfair uppercase tracking-wider underline underline-offset-4 font-semibold transition-colors mt-1"
+          className="text-xs md:text-sm text-pastel-text hover:opacity-80 font-cormorant uppercase tracking-wider underline underline-offset-4 font-bold transition-opacity mt-1"
         >
           ¿Cómo funciona la mesa de regalos? ✨
         </button>
@@ -250,12 +237,12 @@ export default function WishlistClient({
               {col.map((idx) => (
                 <div
                   key={idx}
-                  className="w-full bg-white border border-pink-100 rounded-2xl overflow-hidden shadow-sm animate-pulse flex flex-col"
+                  className="w-full bg-pastel-pink/30 border border-pastel-pink rounded-2xl overflow-hidden shadow-sm animate-pulse flex flex-col"
                 >
-                  <div className="h-56 bg-pink-50/50 rounded-t-2xl w-full" />
+                  <div className="h-56 bg-pastel-pink/50 rounded-t-2xl w-full" />
                   <div className="p-3 md:p-4 flex flex-col flex-grow items-center">
-                    <div className="h-6 bg-gray-200 rounded w-3/4 mx-auto mt-4" />
-                    <div className="h-10 bg-gray-200 rounded-full w-1/2 mx-auto mt-4 mb-6" />
+                    <div className="h-6 bg-pastel-pink rounded w-3/4 mx-auto mt-4" />
+                    <div className="h-10 bg-pastel-green rounded-full w-1/2 mx-auto mt-4 mb-6" />
                   </div>
                 </div>
               ))}
@@ -279,15 +266,15 @@ export default function WishlistClient({
                   initial={isFirstLoad ? "hidden" : false}
                   animate="show"
                   id={regalo.id === firstReservableId ? 'tour-reservable-item' : regalo.id === firstInfiniteId ? 'tour-infinite-item' : undefined}
-                  className="w-full bg-white border border-pink-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
+                  className="w-full bg-pastel-pink/35 border border-pastel-pink rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col"
                 >
                   {/* Imagen con Placeholder y Badge */}
                   <div className="relative w-full">
                     {regalo.imagen_url ? (
-                      <div className={`relative w-full min-h-[180px] sm:min-h-[220px] bg-pink-50/40 overflow-hidden rounded-t-2xl flex items-center justify-center transition-all ${
+                      <div className={`relative w-full min-h-[180px] sm:min-h-[220px] bg-white overflow-hidden rounded-t-2xl flex items-center justify-center transition-all ${
                         regalo.es_reservable && regalo.reservado ? 'opacity-70 grayscale-[0.25]' : ''
                       }`}>
-                        <Gift className="w-10 h-10 text-pink-200/50 absolute pointer-events-none" strokeWidth={1} />
+                        <Gift className="w-10 h-10 text-pastel-pink absolute pointer-events-none" strokeWidth={1} />
                         <img
                           src={regalo.imagen_url}
                           alt={regalo.nombre}
@@ -296,16 +283,16 @@ export default function WishlistClient({
                         />
                       </div>
                     ) : (
-                      <div className={`bg-pink-50/50 min-h-[180px] sm:min-h-[220px] flex items-center justify-center rounded-t-2xl ${
+                      <div className={`bg-pastel-pink/50 min-h-[180px] sm:min-h-[220px] flex items-center justify-center rounded-t-2xl ${
                         regalo.es_reservable && regalo.reservado ? 'opacity-70' : ''
                       }`}>
-                        <Gift className="w-12 h-12 text-gray-300" strokeWidth={1} />
+                        <Gift className="w-12 h-12 text-pastel-text/40" strokeWidth={1} />
                       </div>
                     )}
 
                     {/* Badge RESERVADO encima de la imagen */}
                     {regalo.es_reservable && regalo.reservado && (
-                      <div className="absolute top-2.5 right-2.5 z-20 bg-[#b56a7f] text-white text-[9px] md:text-[10px] font-sans font-bold tracking-wider px-2.5 py-1 rounded-full shadow-md uppercase border border-white/50 backdrop-blur-xs">
+                      <div className="absolute top-2.5 right-2.5 z-20 bg-pastel-green text-pastel-text text-[10px] md:text-xs font-cormorant font-bold tracking-wider px-2.5 py-1 rounded-full shadow-md uppercase border border-white/70 backdrop-blur-xs">
                         RESERVADO
                       </div>
                     )}
@@ -313,21 +300,21 @@ export default function WishlistClient({
 
                   {/* Contenido de la Tarjeta */}
                   <div className="p-3 md:p-4 flex flex-col flex-grow">
-                    <h3 className="font-playfair text-sm md:text-base text-gray-800 mb-1 leading-tight line-clamp-2">
+                    <h3 className="font-cormorant font-semibold text-base md:text-lg text-pastel-text mb-1 leading-tight line-clamp-2">
                       {regalo.nombre}
                     </h3>
 
                     {regalo.tienda && (
-                      <p className="text-[10px] md:text-xs text-gray-400 italic mb-2">
+                      <p className="font-cormorant text-xs md:text-sm text-pastel-text/75 italic mb-2">
                         {regalo.tienda}
                       </p>
                     )}
 
-                    <div className="mt-auto flex flex-col gap-2 w-full mt-3">
-                      <Link href={`/babyshower/wishlist/${regalo.id}`} className="w-full">
+                    <div className="mt-auto flex flex-col gap-2 w-full pt-3">
+                      <Link href={`/regalo/${regalo.id}`} className="w-full">
                         <motion.button
                           whileTap={{ scale: 0.95 }}
-                          className="w-full py-2 md:py-2.5 rounded-full bg-[#b56a7f] text-white font-playfair text-[10px] md:text-xs tracking-wider uppercase transition-opacity hover:opacity-90"
+                          className="w-full py-2 md:py-2.5 rounded-full bg-pastel-green text-pastel-text font-cormorant font-bold text-xs md:text-sm tracking-wider uppercase transition-all hover:brightness-95 shadow-xs"
                         >
                           Ver Detalles
                         </motion.button>
@@ -339,7 +326,7 @@ export default function WishlistClient({
                           {regalo.reservado ? (
                             <button
                               disabled
-                              className="w-full py-2 md:py-2.5 rounded-full bg-[#b56a7f] text-white font-playfair text-[10px] md:text-xs tracking-wider uppercase cursor-not-allowed"
+                              className="w-full py-2 md:py-2.5 rounded-full bg-pastel-green/70 text-pastel-text font-cormorant font-semibold text-xs md:text-sm tracking-wider uppercase cursor-not-allowed"
                             >
                               RESERVADO
                             </button>
@@ -347,7 +334,7 @@ export default function WishlistClient({
                             <motion.button
                               whileTap={{ scale: 0.95 }}
                               onClick={() => setSelectedRegalo(regalo)}
-                              className="w-full py-2 md:py-2.5 rounded-full bg-transparent border border-[#b56a7f] text-[#b56a7f] font-playfair text-[10px] md:text-xs tracking-wider uppercase hover:bg-[#FFE6E7] transition-colors"
+                              className="w-full py-2 md:py-2.5 rounded-full bg-white/80 border border-pastel-green text-pastel-text font-cormorant font-semibold text-xs md:text-sm tracking-wider uppercase hover:bg-pastel-green/60 transition-colors"
                             >
                               RESERVAR
                             </motion.button>
@@ -382,12 +369,12 @@ export default function WishlistClient({
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl p-6 md:p-8 max-w-lg mx-auto"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl p-6 md:p-8 max-w-lg mx-auto border-t border-pastel-pink"
             >
-              <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6" />
+              <div className="w-12 h-1.5 bg-pastel-pink rounded-full mx-auto mb-6" />
 
-              <div className="flex items-center gap-4 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div className="relative w-20 h-20 shrink-0 bg-white rounded-md border border-gray-100 p-2 flex items-center justify-center">
+              <div className="flex items-center gap-4 mb-6 bg-pastel-pink/35 p-4 rounded-xl border border-pastel-pink">
+                <div className="relative w-20 h-20 shrink-0 bg-white rounded-md border border-pastel-pink p-2 flex items-center justify-center">
                   {selectedRegalo.imagen_url ? (
                     <img src={selectedRegalo.imagen_url} alt={selectedRegalo.nombre} className="w-full h-full object-contain" />
                   ) : (
@@ -395,12 +382,12 @@ export default function WishlistClient({
                   )}
                 </div>
                 <div>
-                  <h4 className="font-playfair text-lg text-gray-800 leading-tight mb-1">{selectedRegalo.nombre}</h4>
-                  {selectedRegalo.tienda && <p className="text-xs text-gray-500 italic">{selectedRegalo.tienda}</p>}
+                  <h4 className="font-cormorant font-semibold text-lg text-pastel-text leading-tight mb-1">{selectedRegalo.nombre}</h4>
+                  {selectedRegalo.tienda && <p className="font-cormorant text-xs text-pastel-text/75 italic">{selectedRegalo.tienda}</p>}
                 </div>
               </div>
 
-              <p className="font-playfair text-sm text-gray-600 mb-8 text-center leading-relaxed">
+              <p className="font-cormorant text-base text-pastel-text mb-8 text-center leading-relaxed">
                 ¿Confirmas que deseas regalar esto? Al reservarlo, te aseguras de ser la única persona en obsequiarlo.
               </p>
 
@@ -409,10 +396,10 @@ export default function WishlistClient({
                   whileTap={{ scale: isReserving ? 1 : 0.95 }}
                   disabled={isReserving}
                   onClick={handleReserve}
-                  className="w-full py-4 rounded-full bg-[#EB9EAB] text-white font-playfair text-sm tracking-widest uppercase flex justify-center items-center hover:bg-[#dda7b8] transition-colors"
+                  className="w-full py-4 rounded-full bg-pastel-green text-pastel-text font-cormorant font-bold text-sm tracking-widest uppercase flex justify-center items-center hover:brightness-95 transition-all shadow-sm"
                 >
                   {isReserving ? (
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-5 w-5 text-pastel-text" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -423,7 +410,7 @@ export default function WishlistClient({
                 <button
                   disabled={isReserving}
                   onClick={() => setSelectedRegalo(null)}
-                  className="w-full py-4 rounded-full bg-transparent text-gray-500 font-playfair text-xs tracking-widest uppercase hover:bg-gray-50 transition-colors"
+                  className="w-full py-4 rounded-full bg-transparent text-pastel-text/80 font-cormorant font-semibold text-xs tracking-widest uppercase hover:bg-pastel-pink/30 transition-colors"
                 >
                   Cancelar
                 </button>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Great_Vibes, Inter } from "next/font/google";
+import { Cormorant_Garamond, Parisienne, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,13 +7,14 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const greatVibes = Great_Vibes({
-  variable: "--font-great-vibes",
+const parisienne = Parisienne({
+  variable: "--font-parisienne",
   weight: "400",
   subsets: ["latin"],
 });
@@ -24,24 +25,24 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ||
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-  title: "Baby Shower de Avril",
-  description: "Emilia & Robert te invitan a celebrar el baby shower de su bebé",
+  title: "Mesa de Regalos de Ruth",
+  description: "Lista de sugerencias y mesa de regalos de Ruth",
   icons: {
     icon: "/lazos-dresscode/great - 11.png?v=2",
     shortcut: "/lazos-dresscode/great - 11.png?v=2",
     apple: "/lazos-dresscode/great - 11.png?v=2",
   },
   openGraph: {
-    title: "Baby Shower de Avril",
-    description: "Emilia & Robert te invitan a celebrar el baby shower de su bebé",
+    title: "Mesa de Regalos de Ruth",
+    description: "Lista de sugerencias y mesa de regalos de Ruth",
     url: "/",
-    siteName: "Baby Shower de Avril",
+    siteName: "Mesa de Regalos de Ruth",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Baby Shower de Avril",
+        alt: "Mesa de Regalos de Ruth",
       },
     ],
     locale: "es_ES",
@@ -49,14 +50,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Baby Shower de Avril",
-    description: "Emilia & Robert te invitan a celebrar el baby shower de su bebé",
+    title: "Mesa de Regalos de Ruth",
+    description: "Lista de sugerencias y mesa de regalos de Ruth",
     images: ["/og-image.png"],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F9F8F6",
+  themeColor: "#FADADD",
 };
 
 export default function RootLayout({
@@ -67,9 +68,11 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${playfair.variable} ${greatVibes.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${parisienne.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#F9F8F6]">{children}</body>
+      <body className={`${cormorant.variable} ${parisienne.variable} min-h-full flex flex-col font-cormorant bg-pastel-pink/20 text-pastel-text`}>
+        {children}
+      </body>
     </html>
   );
 }
