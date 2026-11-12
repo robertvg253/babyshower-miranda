@@ -13,7 +13,7 @@ const config: Config = {
       },
       colors: {
         "pastel-pink": "#FADADD",
-        "pastel-green": "#D4EAC8",
+        "pastel-green": "#c6da52",
         "pastel-text": "#4A5568",
       },
     },

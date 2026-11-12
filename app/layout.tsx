@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   title: "Mesa de Regalos de Ruth",
   description: "Lista de sugerencias y mesa de regalos de Ruth",
   icons: {
-    icon: "/lazos-dresscode/great - 11.png?v=2",
-    shortcut: "/lazos-dresscode/great - 11.png?v=2",
-    apple: "/lazos-dresscode/great - 11.png?v=2",
+    icon: "/icon.png?v=3",
+    shortcut: "/icon.png?v=3",
+    apple: "/icon.png?v=3",
   },
   openGraph: {
     title: "Mesa de Regalos de Ruth",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Mesa de Regalos de Ruth",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
         alt: "Mesa de Regalos de Ruth",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mesa de Regalos de Ruth",
     description: "Lista de sugerencias y mesa de regalos de Ruth",
-    images: ["/og-image.png"],
+    images: ["/og-image.png?v=3"],
   },
 };
 
