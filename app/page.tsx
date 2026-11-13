@@ -6,8 +6,8 @@ import WishlistClient from './WishlistClient';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Mesa de Regalos de Ruth',
-  description: 'Lista de sugerencias y mesa de regalos de Ruth',
+  title: 'Mesa de Regalos de Miranda',
+  description: 'Lista de sugerencias y mesa de regalos de Miranda',
 };
 
 export default async function WishlistPage() {

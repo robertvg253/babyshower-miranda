@@ -80,7 +80,7 @@ export default function WishlistTour() {
             <div className="text-left text-pastel-text font-cormorant text-base space-y-4 mb-8">
               <p>
                 <strong className="text-pastel-text bg-pastel-pink/70 px-2 py-0.5 rounded font-bold">Regalos Únicos:</strong><br />
-                Al marcar un artículo como reservado, nos aseguras que no se reciba el mismo detalle dos veces.
+                Al marcar un artículo como reservado, nos aseguras que Miranda no reciba el mismo detalle dos veces.
               </p>
               <p>
                 <strong className="text-pastel-text bg-pastel-pink/70 px-2 py-0.5 rounded font-bold">Reserva Anónima:</strong><br />

@@ -211,7 +211,7 @@ export default function WishlistClient({
           Mesa de Regalos
         </h1>
         <p className="font-cormorant text-sm md:text-base text-pastel-text max-w-lg mx-auto leading-relaxed px-2 mb-8">
-          Si deseas tener un detalle con Ruth, hemos preparado esta lista de sugerencias.
+          Si deseas tener un detalle con Miranda, hemos preparado esta lista de sugerencias.
           Puedes reservar un regalo para asegurar que no se repita.
         </p>
       </div>

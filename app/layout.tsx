@@ -25,24 +25,24 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ||
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-  title: "Mesa de Regalos de Ruth",
-  description: "Lista de sugerencias y mesa de regalos de Ruth",
+  title: "Mesa de Regalos de Miranda",
+  description: "Lista de sugerencias y mesa de regalos de Miranda",
   icons: {
     icon: "/icon.png?v=3",
     shortcut: "/icon.png?v=3",
     apple: "/icon.png?v=3",
   },
   openGraph: {
-    title: "Mesa de Regalos de Ruth",
-    description: "Lista de sugerencias y mesa de regalos de Ruth",
+    title: "Mesa de Regalos de Miranda",
+    description: "Lista de sugerencias y mesa de regalos de Miranda",
     url: "/",
-    siteName: "Mesa de Regalos de Ruth",
+    siteName: "Mesa de Regalos de Miranda",
     images: [
       {
         url: "/og-image.png?v=3",
         width: 1200,
         height: 630,
-        alt: "Mesa de Regalos de Ruth",
+        alt: "Mesa de Regalos de Miranda",
       },
     ],
     locale: "es_ES",
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mesa de Regalos de Ruth",
-    description: "Lista de sugerencias y mesa de regalos de Ruth",
+    title: "Mesa de Regalos de Miranda",
+    description: "Lista de sugerencias y mesa de regalos de Miranda",
     images: ["/og-image.png?v=3"],
   },
 };
